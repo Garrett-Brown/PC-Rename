@@ -1,0 +1,14 @@
+powershell –ExecutionPolicy Bypass
+
+$LA = $(Get-WMIObject -class Win32_ComputerSystem | select username).username
+
+$newname = $LA
+$RA = $LA + "1"
+$SA = $LA + "2"
+$AA = $LA + "3"
+
+Rename-Computer -NewName $newname -Restart -WhatIf
+
+New-LocalUser -Name $RA -Description "Remote Admin." -NoPassword -AccountNeverExpires -PasswordNeverExpires -UserMayNotChangePassword
+New-LocalUser -Name $SA -Description "Survios Arcade." -NoPassword -AccountNeverExpires -PasswordNeverExpires -UserMayNotChangePassword
+New-LocalUser -Name $AA -Description "Arcade Admin." -NoPassword -AccountNeverExpires -PasswordNeverExpires -UserMayNotChangePassword
